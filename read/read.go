@@ -4,14 +4,20 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/segmentio/kafka-go"
 )
 
-type Record struct {
-	Name   string `json:"name"`
-	// Random int    `json:"random"`
+type DepositCalculation struct {
+	BankName    string  `json:"bank_name,omitempty"`
+	Account     string  `json:"account,omitempty"`
+	AccountType string  `json:"account_type,omitempty"`
+	Apy         float64 `json:"apy,omitempty"`
+	Years       float64 `json:"years,omitempty"`
+	Amount      float64 `json:"amount,omitempty"`
+	Delta       float64 `json:"delta,omitempty"`
 }
 
 func main() {
@@ -32,16 +38,20 @@ func main() {
 		MaxBytes:  10e6,
 	})
 	defer r.Close()
-	r.SetOffset(0)
+	err := r.SetOffset(0)
+	if err != nil {
+		log.Fatalf("error setting offset %v", err)
+	}
 
 	for {
 		m, err := r.ReadMessage(context.Background())
 		if err != nil {
-			break
+			fmt.Printf("err when reading message is %v", err)
+			continue
 		}
 		fmt.Printf("message at offset %d: MKey %s = %s\n", m.Offset, string(m.Key), string(m.Value))
 
-		temp := Record{}
+		temp := DepositCalculation{}
 		err = json.Unmarshal(m.Value, &temp)
 		if err != nil {
 			fmt.Println(err)

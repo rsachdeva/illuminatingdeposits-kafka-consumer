@@ -12,27 +12,23 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
-type Record struct {
-	Name   string `json:"name"`
-	// Random int    `json:"random"`
-}
-
-func random(min, max int) int {
-	return rand.Intn(max-min) + min
+type DepositCalculation struct {
+	BankName    string  `json:"bank_name,omitempty"`
+	Account     string  `json:"account,omitempty"`
+	AccountType string  `json:"account_type,omitempty"`
+	Apy         float64 `json:"apy,omitempty"`
+	Years       float64 `json:"years,omitempty"`
+	Amount      float64 `json:"amount,omitempty"`
+	Delta       float64 `json:"delta,omitempty"`
 }
 
 func main() {
-	// MIN := 0
-	// MAX := 0
-	TOTAL := 500
+	TOTAL := 15
 	topic := ""
 	if len(os.Args) > 0 {
-		// MIN, _ = strconv.Atoi(os.Args[1])
-		// MAX, _ = strconv.Atoi(os.Args[2])
-		// TOTAL, _ = strconv.Atoi(os.Args[1])
 		topic = os.Args[1]
 	} else {
-		fmt.Println("Usage:", os.Args[0], "TOTAL TOPIC")
+		fmt.Println("Usage:", os.Args[0], "TOPIC")
 		return
 	}
 
@@ -47,9 +43,14 @@ func main() {
 	rand.Seed(time.Now().Unix())
 
 	for i := 0; i < TOTAL; i++ {
-		// myrand := random(MIN, MAX)
-		// temp := Record{strconv.Itoa(i), myrand}
-		temp := Record{Name: fmt.Sprintf("rohit%v", i)}
+		temp := DepositCalculation{
+			BankName:    "LINKED",
+			Account:     fmt.Sprint("2552", i),
+			AccountType: "CD",
+			Apy:         2.22,
+			Years:       8,
+			Amount:      12552,
+		}
 		recordJSON, _ := json.Marshal(temp)
 
 		err := conn.SetWriteDeadline(time.Now().Add(1 * time.Second))

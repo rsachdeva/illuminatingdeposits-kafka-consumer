@@ -2,7 +2,8 @@
 
 
 This is a sidecar project that is in progress and 
-will work with [illuminatingdeposists-grpc]( https://github.com/rsachdeva/illuminatingdeposits-grpc )
+will be used in future with [illuminatingdeposists-grpc]( https://github.com/rsachdeva/illuminatingdeposits-grpc )
+Currently at very early stage.
 
 # Docker Compose Deployment
 
@@ -13,10 +14,10 @@ docker-compose -f ./deploy/compose/docker-compose.kafka.yml up
 ```
 
 ### Run producer
-go run write/write.go deposits
+go run write/write.go deposit_calculations
 
 ### Run consumer
-go run read/read.go deposits
+go run read/read.go deposit_calculations
 
 ### list topics
 ```shell
@@ -30,4 +31,4 @@ docker-compose -f ./deploy/compose/docker-compose.kafka.yml down
 ```
 
 # Version
-v0.4
+v0.5
