@@ -1,4 +1,4 @@
-# Illuminating Deposits - gRPC
+# Illuminating Deposits - Kafka consumer
 
 This is a sidecar project that is in progress (early stage) and
 currently is used with [illuminatingdeposists-grpc]( https://github.com/rsachdeva/illuminatingdeposits-grpc )
