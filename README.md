@@ -1,34 +1,31 @@
-# illuminatingdeposists-kafka
+# Illuminating Deposits - gRPC
 
+This is a sidecar project that is in progress (early stage) and
+currently is used with [illuminatingdeposists-grpc]( https://github.com/rsachdeva/illuminatingdeposits-grpc )
+for the consumer part of log based message broker.
 
-This is a sidecar project that is in progress and 
-will be used in future with [illuminatingdeposists-grpc]( https://github.com/rsachdeva/illuminatingdeposits-grpc )
-Currently at very early stage.
+###### All commands should be executed from the root directory (illuminatingdeposits-kafka-consumer) of the project
+(Development is WIP)
+
+<p align="center">
+<img src="./logo.png" alt="Illuminating Deposits Project Logo" title="Illuminating Deposits Project Logo" />
+</p>
+
 
 # Docker Compose Deployment
 
-### Start Kafka with zookeeper
+### Start Kafka consumer for illuminatingdeposists-grpc project 
+This should be done after following steps with Docker compose deployment in illuminatingdeposists-grpc.
 ```shell
 export COMPOSE_IGNORE_ORPHANS=True && \
-docker-compose -f ./deploy/compose/docker-compose.kafka.yml up 
-```
-
-### Run producer
-go run write/write.go deposit_calculations
-
-### Run consumer
-go run read/read.go deposit_calculations
-
-### list topics
-```shell
-go run list/list.go
+docker-compose -f ./deploy/compose/docker-compose.grpc.consumer.yml up
 ```
 
 ### Shutdown
 ```shell
 export COMPOSE_IGNORE_ORPHANS=True && \
-docker-compose -f ./deploy/compose/docker-compose.kafka.yml down
+docker-compose -f ./deploy/compose/docker-compose.grpc.consumer.yml down
 ```
 
 # Version
-v0.5
+v0.5.20

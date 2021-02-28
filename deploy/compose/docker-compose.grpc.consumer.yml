@@ -1,0 +1,18 @@
+# https://docs.docker.com/compose/compose-file
+# docker-compose up
+# docker-compose stop
+# docker-compose down
+version: '3'
+
+networks:
+  deposits_shared_grpc_network:
+    driver: bridge
+
+services:
+  depositskafkaconsumer:
+    build:
+      context: ../..
+      dockerfile: ./build/Dockerfile.kafka.consumer
+    container_name: depositskafkaconsumer
+    networks:
+      - deposits_shared_grpc_network

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -21,17 +20,12 @@ type DepositCalculation struct {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Need a Kafka topic name.")
-		return
-	}
-
+	topic := "depositcalculation-grpc"
+	fmt.Println("IlluminatingDeposits gRPC Kafka topic:", topic)
 	partition := 0
-	topic := os.Args[1]
-	fmt.Println("Kafka topic:", topic)
 
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:   []string{"localhost:9092"},
+		Brokers:   []string{"kafka:9092"},
 		Topic:     topic,
 		Partition: partition,
 		MinBytes:  10e3,
