@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpcconsumer
+  labels:
+    app: grpcconsumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpcconsumer
+  template:
+    metadata:
+      labels:
+        app: grpcconsumer
+    spec:
+      containers:
+        - name: grpcconsumer
+          image: rsachdeva/illuminatingdeposits.grpc.consumer:v0.5.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DEPOSITS_GRPC_KAFKA_HOST
+              value: "kafka-grpc"

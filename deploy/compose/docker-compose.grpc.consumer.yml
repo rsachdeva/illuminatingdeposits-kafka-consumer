@@ -12,7 +12,7 @@ services:
   depositskafkaconsumer:
     build:
       context: ../..
-      dockerfile: ./build/Dockerfile.kafka.consumer
+      dockerfile: ./build/Dockerfile.grpc.consumer
     container_name: depositskafkaconsumer
     networks:
       - deposits_shared_grpc_network

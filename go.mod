@@ -1,4 +1,4 @@
-module github.com/rsachdeva/illuminatingdeposists-kafka-consumer
+module github.com/rsachdeva/illuminatingdeposits-kafka-consumer
 
 go 1.16
 

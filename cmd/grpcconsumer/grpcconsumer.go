@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -24,8 +25,14 @@ func main() {
 	fmt.Println("IlluminatingDeposits gRPC Kafka topic:", topic)
 	partition := 0
 
+	kafkaURL := "kafka:9092"
+	if khost, ok := os.LookupEnv("DEPOSITS_GRPC_KAFKA_HOST"); ok {
+		kafkaURL = fmt.Sprintf("%v:9092", khost)
+	}
+	log.Println("kafkaURL is (should match what is used for producer)", kafkaURL)
+
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:   []string{"kafka:9092"},
+		Brokers:   []string{kafkaURL},
 		Topic:     topic,
 		Partition: partition,
 		MinBytes:  10e3,

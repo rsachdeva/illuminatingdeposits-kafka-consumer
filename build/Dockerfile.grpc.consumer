@@ -3,12 +3,12 @@ WORKDIR /illuminatingdeposits
 COPY go.mod .
 RUN go mod download
 COPY . .
-WORKDIR /illuminatingdeposits/cmd/consumer
+WORKDIR /illuminatingdeposits/cmd/grpcconsumer
 RUN go build
 
 FROM alpine
 RUN apk update
 RUN apk add bash
 WORKDIR /cmd
-COPY --from=build /illuminatingdeposits/cmd/consumer/consumer .
-CMD ["./consumer"]
+COPY --from=build /illuminatingdeposits/cmd/grpcconsumer/grpcconsumer .
+CMD ["./grpcconsumer"]
